@@ -1,5 +1,6 @@
 # BaduShop_V1
-App for creating, maintaining and using shopping lists
+App for creating, maintaining and using shopping lists.
+The secondary objective of this app was to test conde generation from ChatGPT and Grok, using both in its free versions.
 
 📱 Main features
 1 Creating and managing shopping lists
