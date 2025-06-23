@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isPicked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="quantity" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="storeSection" attributeType="String" defaultValueString="Corredor ?"/>
+        <attribute name="unit" attributeType="String" defaultValueString="Un"/>
+        <relationship name="shoppingList" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingList" inverseName="items" inverseEntity="ShoppingList"/>
+    </entity>
+    <entity name="ItemHistory" representedClassName="ItemHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="quantity" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="storeLocation" attributeType="String" defaultValueString="Corredor ?"/>
+        <attribute name="unit" attributeType="String" defaultValueString="Un"/>
+        <attribute name="wasPicked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="shoppingListHistory" maxCount="1" deletionRule="Nullify" destinationEntity="ShoppingListHistory" inverseName="items" inverseEntity="ShoppingListHistory"/>
+    </entity>
+    <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isActive" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="marketName" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="storeLocation" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="shoppingList" inverseEntity="Item"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="shoppingLists" inverseEntity="User"/>
+    </entity>
+    <entity name="ShoppingListHistory" representedClassName="ShoppingListHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="marketName" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="purchasedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="storeLocation" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ItemHistory" inverseName="shoppingListHistory" inverseEntity="ItemHistory"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="shoppingListHistories" inverseEntity="User"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="shoppingListHistories" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShoppingListHistory" inverseName="user" inverseEntity="ShoppingListHistory"/>
+        <relationship name="shoppingLists" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ShoppingList" inverseName="user" inverseEntity="ShoppingList"/>
+    </entity>
+</model>
